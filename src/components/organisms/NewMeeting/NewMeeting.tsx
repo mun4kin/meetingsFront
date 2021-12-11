@@ -45,7 +45,7 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
       const [hours, minutes] = data.time.split(':');
       dispatch(createMeetingPending({
         ...data,
-        datetime: new Date(+year, +month, +day, +hours, +minutes, 0).getTime(),
+        datetime: new Date(+year, +month - 1, +day, +hours, +minutes, 0).getTime(),
         date: undefined,
         time: undefined,
         users

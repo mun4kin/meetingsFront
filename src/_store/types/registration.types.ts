@@ -7,5 +7,5 @@ export interface IUser extends ILogin{
   passwordR?:string;
   token?:string;
   photo?:string;
-  isCreator?:string;
+  isCreator?:boolean;
 }

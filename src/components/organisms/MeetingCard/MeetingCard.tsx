@@ -9,17 +9,15 @@ import {
 
 interface IProps {
     data:IMeetings
-  setConfirmModal:(n:number)=>void
+    setConfirmModal:(n:number)=>void
 }
 
 const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
 
 
   // -------------------------------------------------------------------------------------------------------------------
-  const date = moment(+data.datetime);
-
+  const date = moment(+data.datetime).add(-1 * new Date().getTimezoneOffset());
   const onDeleteHandler = () => {
-
 
     setConfirmModal(data.meetingId);
   };
@@ -33,10 +31,11 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
   return (
     <div className='card__wrapper'>
       <div className='date__wrapper'>
-        <div className='date__time'>{date.format('LT') }</div>
-        <div className='date__number'>{date.format('Do MMMM ') }</div>
-
-
+        <div className='date__number'>{date.format('Do  ') }</div>
+        <div className='date__part-wrapper'>
+          <div className='date__month'>{date.format(' MMMM ') }</div>
+          <div className='date__time'>{date.format('dd , LT') }</div>
+        </div>
       </div>
 
       <div className='text__wrapper'>{data.description}</div>

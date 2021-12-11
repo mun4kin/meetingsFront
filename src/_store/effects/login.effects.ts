@@ -11,7 +11,7 @@ import { sendLoginPending, sendLoginSuccess } from '../actions/login.actions';
 import { ILogin } from '../types/login.types';
 import { IUser } from '../types/registration.types';
 import { push } from 'connected-react-router';
-
+// =====================================================================================================================
 /** Авторизация в системе */
 export const sendLoginEffect$ = (actions$: Observable<Action<ILogin>>) =>
   actions$.pipe(
@@ -22,3 +22,4 @@ export const sendLoginEffect$ = (actions$: Observable<Action<ILogin>>) =>
         catchError(showErrorMessage)
       ))
   );
+// =====================================================================================================================

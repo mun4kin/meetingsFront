@@ -16,8 +16,8 @@ import {
 } from './effects/meetings.effects';
 import usersReducer, { IUsersState } from './reducers/users.reducer';
 import { getUsersEffect$ } from './effects/users.effects';
+// =====================================================================================================================
 export interface IStore {
-
   login: ILoginState;
   registration: IUseristrationState;
   meetings: IMeetingsState;
@@ -26,9 +26,8 @@ export interface IStore {
   /* [types:end] */
 }
 
-
+// =====================================================================================================================
 /** Register reducers */
-
 export const createReducers = (history: History<unknown>) => combineReducers({
   router: connectRouter(history),
   login: loginReducer,
@@ -37,7 +36,7 @@ export const createReducers = (history: History<unknown>) => combineReducers({
   registration: registrationReducer,
   /* [reducers:end] */
 });
-
+// =====================================================================================================================
 /** Create store */
 export const createStore = (history: History<unknown>) => {
   const observableMiddleware = createEpicMiddleware();
@@ -58,8 +57,7 @@ export const createStore = (history: History<unknown>) => {
     deleteMeetingEffect$,
     registrationEffect$,
     /* [effects:end] */
-    // eslint-disable-next-line function-paren-newline
   ));
-
+  // =====================================================================================================================
   return store;
 };

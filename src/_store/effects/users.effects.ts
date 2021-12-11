@@ -9,7 +9,7 @@ import { IUser } from '../types/registration.types';
 import { getUsers } from '../services/users.services';
 import { getUsersPending, getUsersSuccess } from '../actions/users.actions';
 import { IStore } from '../index';
-
+// =====================================================================================================================
 /** Получение пользователей */
 export const getUsersEffect$ = (actions$: Observable<Action<string>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
@@ -20,3 +20,4 @@ export const getUsersEffect$ = (actions$: Observable<Action<string>>, store$: St
         catchError(showErrorMessage)
       ))
   );
+// =====================================================================================================================

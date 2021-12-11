@@ -7,19 +7,25 @@
 }
 
 .date__number {
-  @include h5;
-  color: var(--basic-primary)
+  @include h3;
+  color: var(--text-primary);
+  padding-right: 16px
+}
+
+.date__month {
+  @include h6;
+  color: var(--text-secondary)
 }
 
 .date__time {
-  @include h4;
+  @include text-l-16-bold;
   color: var(--basic-primary)
 }
 
 .date__wrapper {
   padding-right: 32px;
   display: flex;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
 }

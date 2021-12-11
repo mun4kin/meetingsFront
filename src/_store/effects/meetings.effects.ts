@@ -15,6 +15,8 @@ import {
 } from '../actions/meetings.actions';
 import { IStore } from '../index';
 import { sendNotification } from 'juicyfront';
+
+// =====================================================================================================================
 /** Получение всех встреч */
 export const getAllMeetingsEffect$ = (actions$: Observable<Action<void>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
@@ -26,7 +28,7 @@ export const getAllMeetingsEffect$ = (actions$: Observable<Action<void>>, store$
       ))
   );
 
-
+// =====================================================================================================================
 /** Создание встречи */
 export const createMeetingEffect$ = (actions$: Observable<Action<IMeetings>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
@@ -34,21 +36,17 @@ export const createMeetingEffect$ = (actions$: Observable<Action<IMeetings>>, st
     switchMap(({ payload }) =>
       createMeeting(payload, store$.value.login.currentUser?.token).pipe(
         mergeMap((result: boolean) => {
-
-
           sendNotification({
             message: 'A new meeting has been successfully created',
             variant: 'green',
             title: 'Success'
           });
-
           return [createMeetingSuccess(result), getAllMeetingsPending()];
         }),
         catchError(showErrorMessage)
       ))
   );
-
-
+// =====================================================================================================================
 /** Удаление встречи */
 export const deleteMeetingEffect$ = (actions$: Observable<Action<number>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
@@ -67,3 +65,4 @@ export const deleteMeetingEffect$ = (actions$: Observable<Action<number>>, store
         catchError(showErrorMessage)
       ))
   );
+// =====================================================================================================================

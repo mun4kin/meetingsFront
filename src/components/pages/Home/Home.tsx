@@ -36,22 +36,25 @@ const Home: React.FC = () => {
     }
 
   }, [user]);
+  // -------------------------------------------------------------------------------------------------------------------
   useEffect(() => {
+    const basicSect = [
+      {
+        id: 'buttons',
+        hideBackground: true,
+        withoutTileWrapper: true,
+        component: (
+          <div className='button_wrapper'>
+            <Button onClick={() => {
+              setModal(true);
+            }} startAdornment={<Calendar/>} buttonType='text'> Create a new meeting</Button>
+          </div>
+        )
+      }
+    ];
+
     if (meetings.meetings.length) {
-      const basicSect = [
-        {
-          id: 'buttons',
-          hideBackground: true,
-          withoutTileWrapper: true,
-          component: (
-            <div className='button_wrapper'>
-              <Button onClick={() => {
-                setModal(true);
-              }} startAdornment={<Calendar/>} buttonType='text'> Create a new meeting</Button>
-            </div>
-          )
-        }
-      ];
+
       const sect = meetings.meetings.map((item:any) => {
         return {
           id: 'meetings-' + item.meetingId,
@@ -63,30 +66,33 @@ const Home: React.FC = () => {
         };
       });
       setSections([...basicSect, ...sect]);
+    } else {
+      setSections([...basicSect]);
     }
   }, [meetings]);
 
-  const newMeetingsModalTSX = modal &&
-    <Modal header='Create a meeting' onClose={() => setModal(false)}>
-      <NewMeeting close={setModal} user={user as IUser} />
-    </Modal>;
+  // -------------------------------------------------------------------------------------------------------------------
 
-
-  const onActionHandler = () => {
+  const onConfirmActionHandler = () => {
     setConfirmModal(0);
     dispatch(deleteMeetingPending(confirmModal));
   };
+  // -------------------------------------------------------------------------------------------------------------------
   const confirmModalTSX = !!confirmModal &&
     <Modal >
-      <Confirm textAccept={'Delete'} onAction={onActionHandler}/>
+      <Confirm textAccept={'Delete'} onClose={() => setConfirmModal(0)} onAction={onConfirmActionHandler}/>
     </Modal>;
-
+  // -------------------------------------------------------------------------------------------------------------------
+  const newMeetingsModalTSX = modal &&
+      <Modal header='Create a meeting' onClose={() => setModal(false)}>
+        <NewMeeting close={setModal} user={user as IUser} />
+      </Modal>;
 
   return (
     meetings.isLoaded ?
       <div className='page__wrapper'>
         <PageWithSections
-          title={`Hi ${user?.firstName}! You can plan your meetings.`}
+          title={<div>Hi {user?.firstName}! You can plan your meetings.</div>}
           showNavigation={false}
           sections={sections}/>
         {newMeetingsModalTSX}
