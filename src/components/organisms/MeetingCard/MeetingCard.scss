@@ -1,0 +1,49 @@
+@import "~juicyfront/styles/mixins";
+
+.card__wrapper {
+  display: flex;
+
+  align-items: center;
+}
+
+.date__number {
+  @include h5;
+  color: var(--basic-primary)
+}
+
+.date__time {
+  @include h4;
+  color: var(--basic-primary)
+}
+
+.date__wrapper {
+  padding-right: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text__wrapper {
+  width: 480px;
+  padding-right: 18px;
+}
+
+.avatars__wrapper {
+  display: flex;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.avatars__items {
+  margin-right: -8px;
+}
+
+.avatars__items:last-child {
+  margin-right: 0;
+}
+
+.menu__wrapper {
+  margin-right: 0;
+  margin-left: auto;
+}

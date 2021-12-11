@@ -1,0 +1,37 @@
+.new-meeting__form {
+  min-width: 500px;
+}
+
+.new-meeting__form-item {
+  padding-bottom: 20px;
+}
+
+.new-meeting__date {
+  display: flex;
+
+}
+
+.new-meeting__date-item {
+  width: 50%;
+  padding-right: 20px;
+}
+
+.new-meeting__date-item:last-child {
+  padding-right: 0;
+}
+
+.new-meeting__wrapper {
+  min-width: 600px;
+
+}
+
+.new-meeting__people {
+  display: flex;
+  padding-bottom: 20px;
+  align-items: center;
+}
+
+.new-meeting__people-text {
+  padding-right: 20px;
+  color: var(--text-secondary)
+}

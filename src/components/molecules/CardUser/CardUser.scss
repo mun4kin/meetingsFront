@@ -1,0 +1,12 @@
+.tile__wrapper {
+  width: 130px;
+
+}
+
+.tile-content__wrapper {
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 130px;
+}

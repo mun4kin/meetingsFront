@@ -1,0 +1,26 @@
+.login__wrapper {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login__form {
+  width: 300px;
+
+}
+
+.login__form-item {
+  padding-bottom: 8px;
+}
+
+.login__form-item:last-child {
+  padding-bottom: 0;
+}
+
+.login__form-buttons {
+  display: flex;
+  justify-content: space-between;
+}

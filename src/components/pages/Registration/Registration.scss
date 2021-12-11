@@ -1,0 +1,31 @@
+.reg__wrapper {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.reg__form {
+  width: 300px;
+
+}
+
+.reg__form-item {
+  padding-bottom: 8px;
+}
+
+.reg__form-item:last-child {
+  padding-bottom: 0;
+  padding-top: 32px;
+}
+
+.reg__form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reg__form-buttons button {
+  margin-right: 8px;
+}
