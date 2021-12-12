@@ -7,13 +7,14 @@ import { IUser } from '../../../_store/types/registration.types';
 import { deleteMeetingPending, getAllMeetingsPending } from '../../../_store/actions/meetings.actions';
 import {
   Avatar,
-  Button, Calendar, Confirm, Menu, Modal, PageWithSections, Preloader
+  Button, Confirm, Edit, Menu, Modal, PageWithSections, Preloader
 } from 'juicyfront';
 import { IMeetingsState } from '../../../_store/reducers/meetings.reducer';
 import { IPageSection } from 'juicyfront/types/projects.types';
 import MeetingCard from '../../organisms/MeetingCard';
 import { logOff, sendLoginSuccess } from '../../../_store/actions/login.actions';
 import NewMeeting from '../../organisms/NewMeeting';
+import { IMeetings } from '../../../_store/types/meetings.types';
 
 
 const Home: React.FC = () => {
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
           <div className='button_wrapper'>
             <Button onClick={() => {
               setModal(true);
-            }} startAdornment={<Calendar/>} buttonType='text'> Create a new meeting</Button>
+            }} startAdornment={<Edit/>} buttonType='text'> Create a new meeting</Button>
           </div>
         )
       }
@@ -56,13 +57,14 @@ const Home: React.FC = () => {
 
     if (meetings.meetings.length) {
 
-      const sect = meetings.meetings.map((item:any) => {
+      const sect = meetings.meetings.map((item:IMeetings) => {
+        const isCreater = !!~item.users.findIndex((mUser) => mUser.isCreator && user?.userId === mUser.userId);
+
         return {
           id: 'meetings-' + item.meetingId,
           title: item.name,
           component: (
-
-            <MeetingCard setConfirmModal={setConfirmModal} data={item}/>
+            <MeetingCard setConfirmModal={setConfirmModal} data={item} isCreater={isCreater}/>
           )
         };
       });

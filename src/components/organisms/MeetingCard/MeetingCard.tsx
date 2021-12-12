@@ -5,14 +5,16 @@ import moment from 'moment';
 import {
   AvatarStatus, Button, Menu, MenuVertical
 } from 'juicyfront';
+import { IListElement } from 'juicyfront/types';
 
 
 interface IProps {
     data:IMeetings
     setConfirmModal:(n:number)=>void
+    isCreater:boolean
 }
 
-const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
+const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal, isCreater }: IProps) => {
 
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -36,9 +38,10 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
   };
 
 
-  const listItems = [
+  const listItems:IListElement[] = [
     {
       label: 'Delete',
+      disabled: !isCreater,
       handler: onDeleteHandler
     }
   ];
@@ -58,8 +61,8 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
         {avatarsTSX()}
       </div>
       <div className='menu__wrapper'>
-        <Menu list={listItems} position='bottom-end'>
-          <Button buttonType='icon'>
+        <Menu list={listItems} position='bottom-end' >
+          <Button buttonType='icon' >
             <MenuVertical/>
           </Button>
         </Menu>
