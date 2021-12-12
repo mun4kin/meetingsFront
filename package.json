@@ -4,8 +4,8 @@
   "homepage": ".",
   "private": true,
   "scripts": {
-    "build:prod": "webpack serve --open --mode development --config ./webpack.config.local.js",
-    "build": "webpack serve --open --mode development --config ./webpack.config.local.js",
+    "build:prod": " webpack --mode development  --config ./webpack.config.local.js ",
+    "build": " webpack --mode development --config ./webpack.config.local.js",
     "start": "webpack serve --open --mode development --config ./webpack.config.local.js",
     "start:live": "webpack serve --open --mode development --live-reload --hot --config ./webpack.config.local.js",
 
