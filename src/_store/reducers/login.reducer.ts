@@ -1,8 +1,9 @@
 import { Action } from 'redux-actions';
 import { createTypedHandler, handleTypedActions } from 'redux-actions-ts';
 
-import { sendLoginSuccess } from '../actions/login.actions';
+import { sendLoginSuccess, logOff } from '../actions/login.actions';
 import { IUser } from '../types/registration.types';
+
 
 export interface ILoginState {
   currentUser?: IUser;
@@ -19,6 +20,11 @@ const loginReducer = handleTypedActions(
         ...state,
         currentUser: action.payload
       };
+    }),
+    /** Выход пользователя */
+    createTypedHandler(logOff, ( ): ILoginState => {
+      sessionStorage.removeItem('user');
+      return { ...initialState };
     }),
   ],
   initialState

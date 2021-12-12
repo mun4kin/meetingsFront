@@ -63,7 +63,7 @@ const Registration: React.FC = () => {
           </FormGroup>
         </div>
         <div className='reg__form-item' >
-          <FormGroup label='Photo Link' required>
+          <FormGroup label='Photo Link' >
             <Input {...register('photo')} placeholder='Photo Link' />
           </FormGroup>
         </div>

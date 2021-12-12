@@ -22,12 +22,26 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
     setConfirmModal(data.meetingId);
   };
 
-  const avatars = data.users.map(item =>
-    <div key={item.userId} className={'avatars__items'}>
-      <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
-    </div>);
+  const avatarsTSX = () => {
+    return <>
+
+      { data.users.slice(-3).map(item =>
+        <div key={item.userId} className={'avatars__items'}>
+          <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
+        </div>)}
+      {data.users.length > 3 &&
+            <div className='avatars__count'>+{data.users.length - 3}</div>}
+
+    </>;
+  };
 
 
+  const listItems = [
+    {
+      label: 'Delete',
+      handler: onDeleteHandler
+    }
+  ];
   return (
     <div className='card__wrapper'>
       <div className='date__wrapper'>
@@ -40,15 +54,11 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal }: IProps) => {
 
       <div className='text__wrapper'>{data.description}</div>
       <div className='avatars__wrapper'>
-        {avatars}
+
+        {avatarsTSX()}
       </div>
       <div className='menu__wrapper'>
-        <Menu list={[
-          {
-            label: 'Удалить',
-            handler: onDeleteHandler
-          }
-        ]}>
+        <Menu list={listItems} position='bottom-end'>
           <Button buttonType='icon'>
             <MenuVertical/>
           </Button>

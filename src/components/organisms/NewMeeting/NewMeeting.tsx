@@ -53,9 +53,16 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
       close(false);
     }
   });
+  const onClickHandler = (item:IUser) => {
+
+    if (!item.isCreator ) {
+
+      setUsers(users.filter((i) => i.userId !== item.userId));
+    }
+  };
   // -------------------------------------------------------------------------------------------------------------------
   const avatarsTsx = users.map(item =>
-    <div key={item.userId} className={'avatars__items'}>
+    <div key={item.userId} className={'avatars__items'} onClick={() => onClickHandler(item)}>
       <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
     </div>);
   // -------------------------------------------------------------------------------------------------------------------

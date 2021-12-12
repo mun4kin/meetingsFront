@@ -2,6 +2,12 @@
   color: var(--basic-primary)
 }
 
-.page__wrapper {
-  padding-left: 40px;
+.page__header {
+  display: flex;
+  width: 840px;
+}
+
+.page__header-avatar {
+  margin-right: 0;
+  margin-left: auto;
 }

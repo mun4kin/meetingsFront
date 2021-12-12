@@ -6,12 +6,13 @@ import { IStore } from '../../../_store';
 import { IUser } from '../../../_store/types/registration.types';
 import { deleteMeetingPending, getAllMeetingsPending } from '../../../_store/actions/meetings.actions';
 import {
-  Button, Calendar, Confirm, Modal, PageWithSections, Preloader
+  Avatar,
+  Button, Calendar, Confirm, Menu, Modal, PageWithSections, Preloader
 } from 'juicyfront';
 import { IMeetingsState } from '../../../_store/reducers/meetings.reducer';
 import { IPageSection } from 'juicyfront/types/projects.types';
 import MeetingCard from '../../organisms/MeetingCard';
-import { sendLoginSuccess } from '../../../_store/actions/login.actions';
+import { logOff, sendLoginSuccess } from '../../../_store/actions/login.actions';
 import NewMeeting from '../../organisms/NewMeeting';
 
 
@@ -77,6 +78,9 @@ const Home: React.FC = () => {
     setConfirmModal(0);
     dispatch(deleteMeetingPending(confirmModal));
   };
+  const logOffHandler = () => {
+    dispatch(logOff());
+  };
   // -------------------------------------------------------------------------------------------------------------------
   const confirmModalTSX = !!confirmModal &&
     <Modal >
@@ -87,12 +91,26 @@ const Home: React.FC = () => {
       <Modal header='Create a meeting' onClose={() => setModal(false)}>
         <NewMeeting close={setModal} user={user as IUser} />
       </Modal>;
-
+  // -------------------------------------------------------------------------------------------------------------------
+  const titleTSX = <div className='page__header'>
+    <div>Hi {user?.firstName}! You can plan your meetings.</div>
+    <div className='page__header-avatar'>
+      <Menu list={[
+        {
+          label: 'Log off',
+          handler: logOffHandler
+        }
+      ]} position='bottom-end'>
+        <Avatar photo={user?.photo}/>
+      </Menu>
+    </div>
+  </div>;
+  // -------------------------------------------------------------------------------------------------------------------
   return (
     meetings.isLoaded ?
       <div className='page__wrapper'>
         <PageWithSections
-          title={<div>Hi {user?.firstName}! You can plan your meetings.</div>}
+          title={titleTSX}
           showNavigation={false}
           sections={sections}/>
         {newMeetingsModalTSX}

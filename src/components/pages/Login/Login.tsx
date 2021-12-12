@@ -34,15 +34,15 @@ const Login: React.FC = () => {
     <div className='login__wrapper'>
       <form onSubmit={onSubmit} className='login__form'>
         <div className='login__form-item'>
-          <Input defaultValue={'111@mail.ru'} {...register('email')} placeholder='E-mail' invalid={!!formState.errors.email}/>
+          <Input defaultValue={'10@gmail.com'} {...register('email')} placeholder='E-mail' invalid={!!formState.errors.email}/>
         </div>
         <div className='login__form-item'>
 
-          <Input defaultValue={'111@mail.ru'} {...register('password')} placeholder='Password' type='password'/>
+          <Input defaultValue={'10@gmail.com'} {...register('password')} placeholder='Password' type='password'/>
         </div>
         <div className='login__form-item login__form-buttons'>
-          <Button type='submit' > Войти</Button>
-          <Button buttonType='secondary' onClick={onClickHandler}> Регистрация</Button>
+          <Button type='submit' > Sign In </Button>
+          <Button buttonType='secondary' onClick={onClickHandler}> Sign Up</Button>
         </div>
       </form>
     </div>
