@@ -12,7 +12,7 @@ import { ILogin } from '../types/login.types';
 import { IUser } from '../types/registration.types';
 import { push } from 'connected-react-router';
 // =====================================================================================================================
-/** Авторизация в системе */
+/** User registration  in system*/
 export const sendLoginEffect$ = (actions$: Observable<Action<ILogin>>) =>
   actions$.pipe(
     ofType(sendLoginPending.toString()),

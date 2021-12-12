@@ -10,11 +10,6 @@ data:IUser
 }
 
 const CardUser: React.FC<IProps> = ({ data, type }: IProps) => {
-
-
-  // -------------------------------------------------------------------------------------------------------------------
-
-
   return (
     <div className='tile__wrapper'>
       <Tile >
@@ -24,7 +19,6 @@ const CardUser: React.FC<IProps> = ({ data, type }: IProps) => {
           <div>{data.secondName}</div>
         </div>
       </Tile>
-
     </div>
   );
 };

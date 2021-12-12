@@ -13,7 +13,7 @@ const initialState: ILoginState = { currentUser: undefined };
 
 const loginReducer = handleTypedActions(
   [
-    /** Авторизация в системе */
+    /** User registration  in system*/
     createTypedHandler(sendLoginSuccess, (state: ILoginState, action: Action<IUser>): ILoginState => {
       sessionStorage.setItem('user', JSON.stringify( action.payload));
       return {
@@ -21,7 +21,7 @@ const loginReducer = handleTypedActions(
         currentUser: action.payload
       };
     }),
-    /** Выход пользователя */
+    /** User logout */
     createTypedHandler(logOff, ( ): ILoginState => {
       sessionStorage.removeItem('user');
       return { ...initialState };

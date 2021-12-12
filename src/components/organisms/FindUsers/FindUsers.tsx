@@ -19,18 +19,20 @@ const FindUsers: React.FC<IProps> = ({ setUsers, users }:IProps) => {
   const onDebounceHandler = (data:IDebounceResult) => {
     dispatch(getUsersPending(data.debounceString));
   };
+  // -------------------------------------------------------------------------------------------------------------------
   const onClickHandler = (item:IUser) => {
     if (!~users.findIndex((i) => i.userId === item.userId)) {
       setUsers([ ...[item], ...users, ]);
     }
   };
+  // -------------------------------------------------------------------------------------------------------------------
   const usersTSX = searchUsers.map(item => {
     const check = ~users.findIndex((i) => i.userId === item.userId) ? 'icon' : undefined;
     return <div key={item.userId} className={'users__items'} onClick={() => onClickHandler(item)}>
       <CardUser data={item} type={check}/>
     </div>;
   });
-
+  // -------------------------------------------------------------------------------------------------------------------
   return (
     <div className='find__wrapper'>
       <Search placeholder='Search users ' onDebounce={onDebounceHandler}/>

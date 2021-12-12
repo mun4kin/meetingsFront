@@ -19,25 +19,22 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal, isCreater }: IPr
 
   // -------------------------------------------------------------------------------------------------------------------
   const date = moment(+data.datetime).add(-1 * new Date().getTimezoneOffset());
-  const onDeleteHandler = () => {
 
-    setConfirmModal(data.meetingId);
-  };
+  // -------------------------------------------------------------------------------------------------------------------
 
-  const avatarsTSX = () => {
-    return <>
+  const onDeleteHandler = () => setConfirmModal(data.meetingId);
 
-      { data.users.slice(-3).map(item =>
-        <div key={item.userId} className={'avatars__items'}>
-          <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
-        </div>)}
-      {data.users.length > 3 &&
-            <div className='avatars__count'>+{data.users.length - 3}</div>}
-
-    </>;
-  };
+  // -------------------------------------------------------------------------------------------------------------------
+  const avatarsTSX = () => <>
+    { data.users.slice(-3).map(item =>
+      <div key={item.userId} className={'avatars__items'}>
+        <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
+      </div>)}
+    {data.users.length > 3 && <div className='avatars__count'>+{data.users.length - 3}</div>}
+  </>;
 
 
+  // -------------------------------------------------------------------------------------------------------------------
   const listItems:IListElement[] = [
     {
       label: 'Delete',
@@ -45,6 +42,7 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal, isCreater }: IPr
       handler: onDeleteHandler
     }
   ];
+  // -------------------------------------------------------------------------------------------------------------------
   return (
     <div className='card__wrapper'>
       <div className='date__wrapper'>

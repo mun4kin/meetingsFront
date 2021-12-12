@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './Registration.scss';
 import {
   Button, FormGroup, Input, sendNotification
@@ -12,26 +12,25 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 
-const schema = yup.object({
-  email: yup.string().required().email(),
-  firstName: yup.string().required(),
-  secondName: yup.string().required(),
-  password: yup.string().required(),
-  passwordR: yup.string().required(),
-}).required();
-
 const Registration: React.FC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+  /** validation schema*/
+  const schema = useMemo(() => yup.object({
+    email: yup.string().required().email(),
+    firstName: yup.string().required(),
+    secondName: yup.string().required(),
+    password: yup.string().required(),
+    passwordR: yup.string().required(),
+  }).required(), []);
+
   // -------------------------------------------------------------------------------------------------------------------
-  const onClick = () => history.push('./login');
-
-
   const { handleSubmit, register, formState } = useForm({
     defaultValues: {} as IUser,
     resolver: yupResolver(schema)
   });
+  // -------------------------------------------------------------------------------------------------------------------
   const onSubmit = handleSubmit((data) => {
     if (data.password !== data.passwordR) {
       sendNotification({
@@ -42,8 +41,10 @@ const Registration: React.FC = () => {
     } else {
       dispatch(registrationPending(data));
     }
-
   });
+  // -------------------------------------------------------------------------------------------------------------------
+  const onClick = () => history.push('./login');
+  // -------------------------------------------------------------------------------------------------------------------
   return (
     <div className='reg__wrapper'>
       <form className='reg_form' onSubmit={onSubmit}>

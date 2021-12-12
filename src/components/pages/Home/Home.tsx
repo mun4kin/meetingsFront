@@ -19,15 +19,16 @@ import { IMeetings } from '../../../_store/types/meetings.types';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const [modal, setModal] = useState<boolean>(false);
+  const [showModalNewMeeting, setShowModalNewMeeting] = useState<boolean>(false);
   const [confirmModal, setConfirmModal] = useState<number>(0);
+  const [sections, setSections] = useState<IPageSection[]>([]);
   const history = useHistory();
   const user: IUser|undefined = useSelector((store: IStore) => store.login.currentUser);
   const meetings: IMeetingsState = useSelector((store: IStore) => store.meetings);
-  const [sections, setSections] = useState<IPageSection[]>([]);
-  // -------------------------------------------------------------------------------------------------------------------
-  useEffect(() => {
 
+  // -------------------------------------------------------------------------------------------------------------------
+  /** check user's auth*/
+  useEffect(() => {
     const sessionUser = sessionStorage.getItem('user');
 
     if (!user && !sessionUser) {
@@ -36,11 +37,11 @@ const Home: React.FC = () => {
       !user && sessionUser && dispatch(sendLoginSuccess(JSON.parse(sessionUser)));
       dispatch(getAllMeetingsPending());
     }
-
   }, [user]);
   // -------------------------------------------------------------------------------------------------------------------
+  /** creation of main page body*/
   useEffect(() => {
-    const basicSect = [
+    const basicSect:IPageSection[] = [
       {
         id: 'buttons',
         hideBackground: true,
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
         component: (
           <div className='button_wrapper'>
             <Button onClick={() => {
-              setModal(true);
+              setShowModalNewMeeting(true);
             }} startAdornment={<Edit/>} buttonType='text'> Create a new meeting</Button>
           </div>
         )
@@ -57,9 +58,9 @@ const Home: React.FC = () => {
 
     if (meetings.meetings.length) {
 
-      const sect = meetings.meetings.map((item:IMeetings) => {
+      const sect:IPageSection[] = meetings.meetings.map((item:IMeetings) => {
+        /** is user have permission to delete  */
         const isCreater = !!~item.users.findIndex((mUser) => mUser.isCreator && user?.userId === mUser.userId);
-
         return {
           id: 'meetings-' + item.meetingId,
           title: item.name,
@@ -80,6 +81,7 @@ const Home: React.FC = () => {
     setConfirmModal(0);
     dispatch(deleteMeetingPending(confirmModal));
   };
+
   const logOffHandler = () => {
     dispatch(logOff());
   };
@@ -89,9 +91,9 @@ const Home: React.FC = () => {
       <Confirm textAccept={'Delete'} onClose={() => setConfirmModal(0)} onAction={onConfirmActionHandler}/>
     </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
-  const newMeetingsModalTSX = modal &&
-      <Modal header='Create a meeting' onClose={() => setModal(false)}>
-        <NewMeeting close={setModal} user={user as IUser} />
+  const newMeetingsModalTSX = showModalNewMeeting &&
+      <Modal header='Create a meeting' onClose={() => setShowModalNewMeeting(false)}>
+        <NewMeeting close={setShowModalNewMeeting} user={user as IUser} />
       </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
   const titleTSX = <div className='page__header'>
@@ -117,7 +119,6 @@ const Home: React.FC = () => {
           sections={sections}/>
         {newMeetingsModalTSX}
         {confirmModalTSX}
-
       </div> : <Preloader size='xl'/>
   );
 };

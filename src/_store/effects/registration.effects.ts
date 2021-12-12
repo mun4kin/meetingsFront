@@ -11,7 +11,7 @@ import { registrationPending, registrationSuccess } from '../actions/registratio
 import { sendNotification } from 'juicyfront';
 import { push } from 'connected-react-router';
 // =====================================================================================================================
-/** Регистрация пользователя */
+/** User's registration */
 export const registrationEffect$ = (actions$: Observable<Action<IUser>>) =>
   actions$.pipe(
     ofType(registrationPending.toString()),

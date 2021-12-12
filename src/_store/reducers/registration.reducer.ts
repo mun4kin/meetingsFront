@@ -11,7 +11,7 @@ const initialState: IUseristrationState = { isSuccess: undefined };
 
 const registrationReducer = handleTypedActions(
   [
-    /** Регистрация пользователя */
+    /** User's registration */
     createTypedHandler(registrationSuccess, (state: IUseristrationState, action: Action<boolean>): IUseristrationState => {
 
       return {

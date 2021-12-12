@@ -17,7 +17,7 @@ import { IStore } from '../index';
 import { sendNotification } from 'juicyfront';
 
 // =====================================================================================================================
-/** Получение всех встреч */
+/** Receiving all meetings */
 export const getAllMeetingsEffect$ = (actions$: Observable<Action<void>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
     ofType(getAllMeetingsPending.toString()),
@@ -29,7 +29,7 @@ export const getAllMeetingsEffect$ = (actions$: Observable<Action<void>>, store$
   );
 
 // =====================================================================================================================
-/** Создание встречи */
+/** Meeting creation */
 export const createMeetingEffect$ = (actions$: Observable<Action<IMeetings>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
     ofType(createMeetingPending.toString()),
@@ -47,7 +47,7 @@ export const createMeetingEffect$ = (actions$: Observable<Action<IMeetings>>, st
       ))
   );
 // =====================================================================================================================
-/** Удаление встречи */
+/** Meeting removing */
 export const deleteMeetingEffect$ = (actions$: Observable<Action<number>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
     ofType(deleteMeetingPending.toString()),

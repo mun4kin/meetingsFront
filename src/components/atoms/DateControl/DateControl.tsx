@@ -15,7 +15,6 @@ const DateControl: React.FC<IProps> = ({ name, ...rest }: IProps) => {
   const { control, formState } = useFormContext();
 
   // -------------------------------------------------------------------------------------------------------------------
-
   return (
     <Controller
       control={ control }
@@ -23,11 +22,9 @@ const DateControl: React.FC<IProps> = ({ name, ...rest }: IProps) => {
       render={ ({ field: { name, value, onChange } }) => (
         <Datepicker
           { ...rest }
-
           name={ name }
           defaultValue={ value }
           onChange={ (event: IDateVariants) => {
-
             onChange(event.value);
           }}
           invalid={ !!formState.errors[name] }

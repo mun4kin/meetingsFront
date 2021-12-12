@@ -4,7 +4,7 @@ import Axios from 'axios-observable';
 import { IUser } from '../types/registration.types';
 
 // =====================================================================================================================
-/** Регистрация пользователя */
+/** User's registration */
 export const registration = (payload: IUser): Observable<boolean> => {
   return Axios.post('/users/registration', payload).pipe(map(( ) => true));
 };

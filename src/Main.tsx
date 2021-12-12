@@ -19,9 +19,6 @@ const Main: React.FC = () => {
       <App/>
     </ConnectedRouter>
   </Provider>;
-
-
 };
-
 
 export default Main;

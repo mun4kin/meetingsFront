@@ -21,11 +21,9 @@ const TimeControl: React.FC<IProps> = ({ name, ...rest }: IProps) => {
       render={ ({ field: { name, value, onChange } }) => (
         <Timepicker
           { ...rest }
-
           name={ name }
           defaultValue={ value }
           onChangeValue={ (value, _id) => onChange(value) }
-
         />
       ) }
     />

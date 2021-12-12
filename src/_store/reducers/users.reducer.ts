@@ -11,7 +11,7 @@ const initialState: IUsersState = { collection: [] };
 
 const usersReducer = handleTypedActions(
   [
-    /** Получение пользователей */
+    /** Receiving all users */
     createTypedHandler(getUsersSuccess, (state: IUsersState, action: Action<IUser[]>): IUsersState => {
 
       return {

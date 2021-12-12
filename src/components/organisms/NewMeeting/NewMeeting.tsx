@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './NewMeeting.scss';
 import {
   AvatarStatus,
@@ -15,23 +15,12 @@ import { IUser } from '../../../_store/types/registration.types';
 import { useDispatch } from 'react-redux';
 import { createMeetingPending } from '../../../_store/actions/meetings.actions';
 
-const schema = yup.object({
-  name: yup.string().required(),
-  date: yup.string().required(),
-  time: yup.string().required()
-}).required();
-
 interface IProps{
   user:IUser
   close:(b:boolean)=>void
 }
 const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
   const dispatch = useDispatch();
-  const form = useForm({
-    defaultValues: {} as IMeetings,
-    resolver: yupResolver(schema)
-  });
-  const { handleSubmit, register, formState } = form;
   const [users, setUsers] = useState<IUser[]>([
     {
       ...user,
@@ -39,7 +28,21 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
     }
   ]);
   // -------------------------------------------------------------------------------------------------------------------
-  const onSubmit = handleSubmit((data:IMeetings) => {
+  const schema = useMemo(() => yup.object({
+    name: yup.string().required(),
+    date: yup.string().required(),
+    time: yup.string().required()
+  }).required(), []);
+
+
+  const form = useForm({
+    defaultValues: {} as IMeetings,
+    resolver: yupResolver(schema)
+  });
+
+  const { handleSubmit, register, formState } = form;
+  // -------------------------------------------------------------------------------------------------------------------
+  const onSubmitHandler = handleSubmit((data:IMeetings) => {
     if (data.date && data.time) {
       const [day, month, year] = data.date.split('.');
       const [hours, minutes] = data.time.split(':');
@@ -53,12 +56,9 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
       close(false);
     }
   });
+  // -------------------------------------------------------------------------------------------------------------------
   const onClickHandler = (item:IUser) => {
-
-    if (!item.isCreator ) {
-
-      setUsers(users.filter((i) => i.userId !== item.userId));
-    }
+    !item.isCreator && setUsers(users.filter((i) => i.userId !== item.userId));
   };
   // -------------------------------------------------------------------------------------------------------------------
   const avatarsTsx = users.map(item =>
@@ -69,7 +69,7 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
   return (
     <div className='new-meeting__wrapper'>
       <FormProvider { ...form }>
-        <form className='new-meeting__form' onSubmit={onSubmit}>
+        <form className='new-meeting__form' onSubmit={onSubmitHandler}>
           <div className='new-meeting__form-item'>
             <FormGroup label='Meeting name' required errorMessage={ formState.errors.name?.message}>
               <Input {...register('name')} placeholder='Meeting name' invalid={!!formState.errors.name}/>
@@ -92,7 +92,6 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
               </FormGroup>
             </div>
           </div>
-
           <div className='new-meeting__people'>
             <div className='new-meeting__people-text'>Participants:</div>
             {avatarsTsx}
@@ -106,8 +105,6 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
         </form>
       </FormProvider>
     </div>
-
-
   );
 };
 

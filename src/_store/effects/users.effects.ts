@@ -10,7 +10,7 @@ import { getUsers } from '../services/users.services';
 import { getUsersPending, getUsersSuccess } from '../actions/users.actions';
 import { IStore } from '../index';
 // =====================================================================================================================
-/** Получение пользователей */
+/** Receiving all users */
 export const getUsersEffect$ = (actions$: Observable<Action<string>>, store$: StateObservable<IStore>) =>
   actions$.pipe(
     ofType(getUsersPending.toString()),

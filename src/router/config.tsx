@@ -4,21 +4,19 @@ import React, {
 
 
 export interface IRoute {
-  /** Адрес */
+  /** Address */
   path: string;
-  /** Точность совпадения */
+  /** Matching precision */
   exact: boolean;
-  /** Защищенный роут */
+  /** Secure route */
   private?: boolean;
-  /** Компонент */
+  /** ComponentTSX */
   component?: LazyExoticComponent<ComponentType<any>>;
-  // /** Для каких ролей доступен данный роут */
-  // RoleGuard?: UserRole[];
-  /** Дочерние роуты */
+  /** Children routes*/
   routes?: IRoute[];
-  /** Редирект*/
+  /** Redirection*/
   redirect?: string;
-  /** Прелоудер ф*/
+  /** Preloader*/
   fallback: NonNullable<ReactNode> | null;
 }
 
