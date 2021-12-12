@@ -10,3 +10,7 @@ export const createMeetingSuccess = createTypedAction<boolean>('[Success] Meetin
 
 export const deleteMeetingPending = createTypedAction<number>('[Pending] Meeting removing');
 export const deleteMeetingSuccess = createTypedAction<boolean>('[Success] Meeting removing');
+
+
+export const updateMeetingPending = createTypedAction<IMeetings>('[Pending] Updating the meeting');
+export const updateMeetingSuccess = createTypedAction<boolean>('[Success] Updating the meeting');

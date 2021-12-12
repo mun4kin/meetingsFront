@@ -45,8 +45,11 @@
 
 .avatars__items {
   margin-right: -8px;
+  position: relative;
 }
-
+.avatars__tooltip{
+  //background: black;
+}
 .avatars__count {
   padding-left: 12px;
   @include h6;

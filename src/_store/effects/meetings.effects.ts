@@ -7,11 +7,13 @@ import { Action } from 'redux-actions';
 import { showErrorMessage } from '../_commonActions/error.actions';
 import { IMeetings } from '../types/meetings.types';
 import {
-  getAllMeetings, createMeeting, deleteMeeting
+  getAllMeetings, createMeeting, deleteMeeting,
+  updateMeeting
 } from '../services/meetings.services';
 import {
   getAllMeetingsPending, getAllMeetingsSuccess, createMeetingPending, createMeetingSuccess,
-  deleteMeetingPending, deleteMeetingSuccess
+  deleteMeetingPending, deleteMeetingSuccess,
+  updateMeetingPending, updateMeetingSuccess
 } from '../actions/meetings.actions';
 import { IStore } from '../index';
 import { sendNotification } from 'juicyfront';
@@ -66,3 +68,22 @@ export const deleteMeetingEffect$ = (actions$: Observable<Action<number>>, store
       ))
   );
 // =====================================================================================================================
+
+
+/** Updating the meeting */
+export const updateMeetingEffect$ = (actions$: Observable<Action<IMeetings>>, store$: StateObservable<IStore>) =>
+  actions$.pipe(
+    ofType(updateMeetingPending.toString()),
+    switchMap(({ payload }) =>
+      updateMeeting(payload, store$.value.login.currentUser?.token).pipe(
+        mergeMap((result: boolean) => {
+          sendNotification({
+            message: 'The meeting has been successfully updated',
+            variant: 'green',
+            title: 'Success'
+          });
+          return [updateMeetingSuccess(result), getAllMeetingsPending()];
+        }),
+        catchError(showErrorMessage)
+      ))
+  );

@@ -24,3 +24,12 @@ export const deleteMeeting = (payload: number, token = ''): Observable<boolean> 
     .pipe(map(() => true));
 };
 // =====================================================================================================================
+
+
+/** Updating the meeting */
+export const updateMeeting = (payload: IMeetings, token = ''): Observable<boolean> => {
+  return Axios.put('/meeting/update', payload, { headers: { 'authorization': token } }).pipe(map(() => {
+
+    return true;
+  }));
+};

@@ -12,7 +12,8 @@ import { History } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import meetingsReducer, { IMeetingsState } from './reducers/meetings.reducer';
 import {
-  getAllMeetingsEffect$, createMeetingEffect$, deleteMeetingEffect$
+  getAllMeetingsEffect$, createMeetingEffect$, deleteMeetingEffect$,
+  updateMeetingEffect$
 } from './effects/meetings.effects';
 import usersReducer, { IUsersState } from './reducers/users.reducer';
 import { getUsersEffect$ } from './effects/users.effects';
@@ -55,6 +56,7 @@ export const createStore = (history: History<unknown>) => {
     getUsersEffect$,
     createMeetingEffect$,
     deleteMeetingEffect$,
+    updateMeetingEffect$,
     registrationEffect$,
     /* [effects:end] */
   ));

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useRef, useState
+} from 'react';
 import './Home.scss';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,16 +17,22 @@ import MeetingCard from '../../organisms/MeetingCard';
 import { logOff, sendLoginSuccess } from '../../../_store/actions/login.actions';
 import NewMeeting from '../../organisms/NewMeeting';
 import { IMeetings } from '../../../_store/types/meetings.types';
+import { clearUsers } from '../../../_store/actions/users.actions';
 
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const [showModalNewMeeting, setShowModalNewMeeting] = useState<boolean>(false);
+  const [showModalMeeting, setShowModalMeeting] = useState<boolean>(false);
   const [confirmModal, setConfirmModal] = useState<number>(0);
   const [sections, setSections] = useState<IPageSection[]>([]);
   const history = useHistory();
   const user: IUser|undefined = useSelector((store: IStore) => store.login.currentUser);
   const meetings: IMeetingsState = useSelector((store: IStore) => store.meetings);
+  const editMeetings = useRef<IMeetings|undefined>(undefined);
+
+  useEffect(() => {
+    dispatch(clearUsers());
+  }, [showModalMeeting]);
 
   // -------------------------------------------------------------------------------------------------------------------
   /** check user's auth*/
@@ -49,7 +57,7 @@ const Home: React.FC = () => {
         component: (
           <div className='button_wrapper'>
             <Button onClick={() => {
-              setShowModalNewMeeting(true);
+              setShowModalMeeting(true);
             }} startAdornment={<Edit/>} buttonType='text'> Create a new meeting</Button>
           </div>
         )
@@ -65,7 +73,7 @@ const Home: React.FC = () => {
           id: 'meetings-' + item.meetingId,
           title: item.name,
           component: (
-            <MeetingCard setConfirmModal={setConfirmModal} data={item} isCreater={isCreater}/>
+            <MeetingCard onChange={onEditMeetingHandler} setConfirmModal={setConfirmModal} data={item} isCreater={isCreater}/>
           )
         };
       });
@@ -85,15 +93,20 @@ const Home: React.FC = () => {
   const logOffHandler = () => {
     dispatch(logOff());
   };
+
+  const onEditMeetingHandler = (meeting:IMeetings) => {
+    editMeetings.current = meeting;
+    setShowModalMeeting(true);
+  };
   // -------------------------------------------------------------------------------------------------------------------
   const confirmModalTSX = !!confirmModal &&
     <Modal >
       <Confirm textAccept={'Delete'} onClose={() => setConfirmModal(0)} onAction={onConfirmActionHandler}/>
     </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
-  const newMeetingsModalTSX = showModalNewMeeting &&
-      <Modal header='Create a meeting' onClose={() => setShowModalNewMeeting(false)}>
-        <NewMeeting close={setShowModalNewMeeting} user={user as IUser} />
+  const editMeetingsModalTSX = showModalMeeting &&
+      <Modal header='Create a meeting' onClose={() => setShowModalMeeting(false)}>
+        <NewMeeting editMeeting={editMeetings} close={setShowModalMeeting} user={user as IUser} />
       </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
   const titleTSX = <div className='page__header'>
@@ -117,7 +130,7 @@ const Home: React.FC = () => {
           title={titleTSX}
           showNavigation={false}
           sections={sections}/>
-        {newMeetingsModalTSX}
+        {editMeetingsModalTSX}
         {confirmModalTSX}
       </div> : <Preloader size='xl'/>
   );

@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import './NewMeeting.scss';
 import {
   AvatarStatus,
@@ -13,20 +15,27 @@ import TimeControl from '../../atoms/TimeControl';
 import FindUsers from '../FindUsers';
 import { IUser } from '../../../_store/types/registration.types';
 import { useDispatch } from 'react-redux';
-import { createMeetingPending } from '../../../_store/actions/meetings.actions';
+import { createMeetingPending, updateMeetingPending } from '../../../_store/actions/meetings.actions';
+import moment from 'moment';
 
 interface IProps{
   user:IUser
   close:(b:boolean)=>void
+  editMeeting: React.MutableRefObject<IMeetings | undefined>
 }
-const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
+const NewMeeting: React.FC<IProps> = ({ user, close, editMeeting }:IProps) => {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState<IUser[]>([
-    {
-      ...user,
-      isCreator: true
-    }
-  ]);
+  const [users, setUsers] = useState<IUser[]>([]);
+  useEffect(() => {
+    editMeeting.current ?
+      setUsers(editMeeting.current.users) :
+      setUsers( [
+        {
+          ...user,
+          isCreator: true
+        }
+      ]);
+  }, [editMeeting]);
   // -------------------------------------------------------------------------------------------------------------------
   const schema = useMemo(() => yup.object({
     name: yup.string().required(),
@@ -36,7 +45,11 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
 
 
   const form = useForm({
-    defaultValues: {} as IMeetings,
+    defaultValues: editMeeting.current ? {
+      ...editMeeting.current,
+      time: moment( editMeeting.current ?.datetime).add(-1 * new Date().getTimezoneOffset()).format('HH:mm'),
+      date: moment( editMeeting.current ?.datetime).add(-1 * new Date().getTimezoneOffset()).format('DD.MM.YYYY'),
+    } : {} as IMeetings,
     resolver: yupResolver(schema)
   });
 
@@ -46,13 +59,21 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
     if (data.date && data.time) {
       const [day, month, year] = data.date.split('.');
       const [hours, minutes] = data.time.split(':');
-      dispatch(createMeetingPending({
+      const result = {
         ...data,
         datetime: new Date(+year, +month - 1, +day, +hours, +minutes, 0).getTime(),
         date: undefined,
         time: undefined,
         users
-      }));
+      };
+
+      if ( editMeeting.current ) {
+        editMeeting.current = undefined;
+        dispatch(updateMeetingPending(result));
+      } else {
+        dispatch(createMeetingPending(result));
+      }
+
       close(false);
     }
   });
@@ -99,7 +120,7 @@ const NewMeeting: React.FC<IProps> = ({ user, close }:IProps) => {
           <FindUsers setUsers={setUsers} users={users}/>
           <div className='new-meeting__form-item new-meeting__form-buttons'>
             <div className='new-meeting__form-button'>
-              <Button fullWidth type='submit' > Create</Button>
+              <Button fullWidth type='submit' >{editMeeting ? 'Update' : 'Create' }</Button>
             </div>
           </div>
         </form>
