@@ -9,7 +9,7 @@ import { IUser } from '../../../_store/types/registration.types';
 import { deleteMeetingPending, getAllMeetingsPending } from '../../../_store/actions/meetings.actions';
 import {
   Avatar,
-  Button, Confirm, Edit, Menu, Modal, PageWithSections, Preloader
+  Button, Close, Confirm, Edit, Menu, Modal, PageWithSections, Preloader
 } from 'juicyfront';
 import { IMeetingsState } from '../../../_store/reducers/meetings.reducer';
 import { IPageSection } from 'juicyfront/types/projects.types';
@@ -31,6 +31,7 @@ const Home: React.FC = () => {
   const editMeetings = useRef<IMeetings|undefined>(undefined);
 
   useEffect(() => {
+    editMeetings.current = undefined;
     dispatch(clearUsers());
   }, [showModalMeeting]);
 
@@ -105,8 +106,13 @@ const Home: React.FC = () => {
     </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
   const editMeetingsModalTSX = showModalMeeting &&
-      <Modal fullScreen custom onClose={() => setShowModalMeeting(false)}>
+      <Modal fullScreen custom>
+
         <div className='modal__wrapper'>
+          <button className='modal__close' onClick={() => setShowModalMeeting(false)} >
+            <Close/>
+          </button>
+
           <div className='modal__header'>Create a meeting</div>
           <NewMeeting editMeeting={editMeetings} close={setShowModalMeeting} user={user as IUser} />
         </div>
