@@ -1,3 +1,4 @@
+@import "~juicyfront/styles/mixins";
 .button_wrapper {
   color: var(--basic-primary)
 }
@@ -10,4 +11,18 @@
 .page__header-avatar {
   margin-right: 0;
   margin-left: auto;
+}
+
+.modal__wrapper {
+  background: var(--background-primary);
+  padding: 20px;
+  border-radius: 20px;
+  overflow-y: auto;
+  height: 100vh
+}
+
+.modal__header {
+  @include h3;
+  padding:20px 0;
+
 }

@@ -120,7 +120,7 @@ const NewMeeting: React.FC<IProps> = ({ user, close, editMeeting }:IProps) => {
           <FindUsers setUsers={setUsers} users={users}/>
           <div className='new-meeting__form-item new-meeting__form-buttons'>
             <div className='new-meeting__form-button'>
-              <Button fullWidth type='submit' >{editMeeting ? 'Update' : 'Create' }</Button>
+              <Button fullWidth type='submit' >{editMeeting.current ? 'Update' : 'Create' }</Button>
             </div>
           </div>
         </form>

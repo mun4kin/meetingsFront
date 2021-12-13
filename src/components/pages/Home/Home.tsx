@@ -105,8 +105,11 @@ const Home: React.FC = () => {
     </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
   const editMeetingsModalTSX = showModalMeeting &&
-      <Modal header='Create a meeting' onClose={() => setShowModalMeeting(false)}>
-        <NewMeeting editMeeting={editMeetings} close={setShowModalMeeting} user={user as IUser} />
+      <Modal fullScreen custom onClose={() => setShowModalMeeting(false)}>
+        <div className='modal__wrapper'>
+          <div className='modal__header'>Create a meeting</div>
+          <NewMeeting editMeeting={editMeetings} close={setShowModalMeeting} user={user as IUser} />
+        </div>
       </Modal>;
   // -------------------------------------------------------------------------------------------------------------------
   const titleTSX = <div className='page__header'>
