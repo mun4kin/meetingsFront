@@ -1,4 +1,5 @@
 @import "~juicyfront/styles/mixins";
+
 .button_wrapper {
   color: var(--basic-primary)
 }
@@ -18,11 +19,16 @@
   padding: 20px;
   border-radius: 20px;
   overflow-y: auto;
-  height: 100vh
+
+}
+@media screen and (max-height: 750px) {
+  .modal__wrapper {
+    height: calc(100vh - 40px )
+  }
 }
 
 .modal__header {
   @include h3;
-  padding:20px 0;
+  padding: 20px 0;
 
 }
