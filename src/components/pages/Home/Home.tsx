@@ -40,10 +40,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     const sessionUser = sessionStorage.getItem('user');
 
-    if (!user && !sessionUser) {
-      history.push('/login');
+    if (!user) {
+      !sessionUser ? history.push('/login') : dispatch(sendLoginSuccess(JSON.parse(sessionUser)));
     } else {
-      !user && sessionUser && dispatch(sendLoginSuccess(JSON.parse(sessionUser)));
       dispatch(getAllMeetingsPending());
     }
   }, [user]);
