@@ -44,7 +44,7 @@ describe('Test <MeetingCard/> component', () => {
             expect(screen.queryByText('Delete')).toBeTruthy();
             expect(screen.queryByText('Edit')).toBeTruthy();
         })
-      userEvent.click(screen.getAllByText('Delete')[0])
+      userEvent.click(screen.getByText('Delete'))
         expect(setConfirmModal).toHaveBeenCalled();
         userEvent.click(byRole("button").get())
 
@@ -52,7 +52,7 @@ describe('Test <MeetingCard/> component', () => {
             expect(screen.queryByText('Delete')).toBeTruthy();
             expect(screen.queryByText('Edit')).toBeTruthy();
         })
-        userEvent.click(screen.getAllByText('Edit')[0])
+        userEvent.click(screen.getByText('Edit'))
         expect(onChange).toHaveBeenCalled();
     })
     //------------------------------------------------------------------------------------------------------------------
@@ -63,8 +63,8 @@ describe('Test <MeetingCard/> component', () => {
             expect(screen.queryByText('Delete')).toBeInTheDocument();
             expect(screen.queryByText('Edit')).toBeInTheDocument();
         })
-        expect(() =>userEvent.click(screen.getAllByText('Delete')[0])).toThrow()
-        expect(() =>userEvent.click(screen.getAllByText('Edit')[0])).toThrow()
+        expect(() =>userEvent.click(screen.getByText('Delete'))).toThrow()
+        expect(() =>userEvent.click(screen.getByText('Edit'))).toThrow()
     })
 
 })
