@@ -34,7 +34,7 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal, isCreater, onCha
         >
           <AvatarStatus variant='white' photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
           <div className='avatars__tooltip'>
-            <div><b>E-mail: </b>{item.email}</div>
+            <div data-testid='email'><b>E-mail: </b>{item.email}</div>
             <div><b>Name: </b>{item.firstName} {item.secondName}</div>
             <div><b>Meeting owner: </b>{item.isCreator ? 'yes' : 'no'} </div>
           </div>
