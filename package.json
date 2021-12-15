@@ -4,7 +4,6 @@
   "homepage": ".",
   "private": true,
   "scripts": {
-
     "build": "webpack --mode development --config ./webpack.config.local.js",
     "build:start": "cd dist && npx serve",
     "start:dev": "webpack serve --open --mode development --config ./webpack.config.local.js",
@@ -14,7 +13,6 @@
     "lint": "eslint --fix --ext .ts,.tsx,.js .",
     "commit": "git add . && node ./node_modules/cz-customizable/standalone.js",
     "g": "node node_modules/react-generator-cmd/dist"
-
   },
   "dependencies": {
     "juicyfront": "^1.3.214",
