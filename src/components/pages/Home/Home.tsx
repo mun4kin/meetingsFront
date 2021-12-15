@@ -31,8 +31,11 @@ const Home: React.FC = () => {
   const editMeetings = useRef<IMeetings|undefined>(undefined);
 
   useEffect(() => {
-    editMeetings.current = undefined;
-    dispatch(clearUsers());
+    if (!showModalMeeting) {
+      editMeetings.current = undefined;
+      dispatch(clearUsers());
+    }
+
   }, [showModalMeeting]);
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -112,7 +115,7 @@ const Home: React.FC = () => {
             <Close/>
           </button>
 
-          <div className='modal__header'>Create a meeting</div>
+          <div className='modal__header'>{editMeetings.current ? 'Update' : 'Create' } a meeting</div>
           <NewMeeting editMeeting={editMeetings} close={setShowModalMeeting} user={user as IUser} />
         </div>
       </Modal>;
