@@ -4,7 +4,7 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import loginReducer, { ILoginState } from './reducers/login.reducer';
-import { sendLoginEffect$ } from './effects/login.effects';
+import { logOffEffect$, sendLoginEffect$ } from './effects/login.effects';
 import registrationReducer, { IUseristrationState } from './reducers/registration.reducer';
 import { registrationEffect$ } from './effects/registration.effects';
 
@@ -58,6 +58,7 @@ export const createStore = (history: History<unknown>) => {
     deleteMeetingEffect$,
     updateMeetingEffect$,
     registrationEffect$,
+    logOffEffect$
     /* [effects:end] */
   ));
   // =====================================================================================================================

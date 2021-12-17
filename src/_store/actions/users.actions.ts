@@ -5,4 +5,4 @@ export const getUsersPending = createTypedAction<string>('[Pending] Receiving al
 export const getUsersSuccess = createTypedAction<IUser[]>('[Success] Receiving all users');
 
 
-export const clearUsers = createTypedAction<void>('[Success] clear start');
+export const clearUsers = createTypedAction<void>('clear modal window');

@@ -67,10 +67,8 @@ const MeetingCard: React.FC<IProps> = ({ data, setConfirmModal, isCreater, onCha
           <div className='date__time'>{date.format('dd , LT') }</div>
         </div>
       </div>
-
       <div className='text__wrapper'>{data.description}</div>
       <div className='avatars__wrapper'>
-
         {avatarsTSX()}
       </div>
       <div className='menu__wrapper'>

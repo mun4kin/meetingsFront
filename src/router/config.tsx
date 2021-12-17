@@ -25,6 +25,7 @@ export const routes: IRoute[] = [
   {
     path: '/home',
     exact: false,
+    private: true,
     fallback: <div/>,
     component: lazy(() => import('../components/pages/Home'))
   },

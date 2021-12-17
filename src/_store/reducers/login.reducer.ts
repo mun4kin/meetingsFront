@@ -8,8 +8,13 @@ import { IUser } from '../types/registration.types';
 export interface ILoginState {
   currentUser?: IUser;
 }
+const init = ():IUser|undefined => {
+  const user = sessionStorage.getItem('user');
+  return user ? JSON.parse(user) : undefined;
+};
 
-const initialState: ILoginState = { currentUser: undefined };
+
+const initialState: ILoginState = { currentUser: init() };
 
 const loginReducer = handleTypedActions(
   [

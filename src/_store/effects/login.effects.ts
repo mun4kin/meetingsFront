@@ -1,13 +1,15 @@
 import { ofType } from 'redux-observable';
 import {
-  catchError, mergeMap, switchMap
+  catchError, map, mergeMap, switchMap
 } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Action } from 'redux-actions';
 import { showErrorMessage } from '../_commonActions/error.actions';
 
 import { sendLogin } from '../services/login.services';
-import { sendLoginPending, sendLoginSuccess } from '../actions/login.actions';
+import {
+  logOff, sendLoginPending, sendLoginSuccess
+} from '../actions/login.actions';
 import { ILogin } from '../types/login.types';
 import { IUser } from '../types/registration.types';
 import { push } from 'connected-react-router';
@@ -22,4 +24,12 @@ export const sendLoginEffect$ = (actions$: Observable<Action<ILogin>>) =>
         catchError(showErrorMessage)
       ))
   );
+// =====================================================================================================================
+/** User registration  in system*/
+export const logOffEffect$ = (actions$: Observable<Action<ILogin>>) =>
+  actions$.pipe(
+    ofType(logOff.toString()),
+    map(() => push('/login'))
+  );
+
 // =====================================================================================================================

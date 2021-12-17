@@ -87,6 +87,7 @@ const NewMeeting: React.FC<IProps> = ({ user, close, editMeeting }:IProps) => {
       <AvatarStatus variant={'white'} photo={item.photo} type={item.isCreator ? 'boss' : undefined}/>
     </div>);
   // -------------------------------------------------------------------------------------------------------------------
+
   return (
     <div className='new-meeting__wrapper'>
       <FormProvider { ...form }>

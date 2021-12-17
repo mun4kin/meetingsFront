@@ -14,7 +14,7 @@ import {
 import { IMeetingsState } from '../../../_store/reducers/meetings.reducer';
 import { IPageSection } from 'juicyfront/types/projects.types';
 import MeetingCard from '../../organisms/MeetingCard';
-import { logOff, sendLoginSuccess } from '../../../_store/actions/login.actions';
+import { logOff } from '../../../_store/actions/login.actions';
 import NewMeeting from '../../organisms/NewMeeting';
 import { IMeetings } from '../../../_store/types/meetings.types';
 import { clearUsers } from '../../../_store/actions/users.actions';
@@ -31,21 +31,19 @@ const Home: React.FC = () => {
   const editMeetings = useRef<IMeetings|undefined>(undefined);
 
   useEffect(() => {
-    if (!showModalMeeting) {
-      editMeetings.current = undefined;
+    if (showModalMeeting) {
       dispatch(clearUsers());
+    } else {
+      editMeetings.current = undefined;
     }
-
   }, [showModalMeeting]);
 
   // -------------------------------------------------------------------------------------------------------------------
   /** check user's auth*/
   useEffect(() => {
-    const sessionUser = sessionStorage.getItem('user');
 
-    if (!user) {
-      !sessionUser ? history.push('/login') : dispatch(sendLoginSuccess(JSON.parse(sessionUser)));
-    } else {
+
+    if (user) {
       dispatch(getAllMeetingsPending());
     }
   }, [user]);
