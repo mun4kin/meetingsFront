@@ -1,6 +1,6 @@
 Test project "Meeting planing"
 
-https://meetings-front.herokuapp.com
+https://meetingsfront.onrender.com/
 
 ## How to start
  
@@ -21,19 +21,16 @@ login/password: 10@gmail.com
 ## Main technologes
 1. webpack 5
 2. ReactJS
-3. Redux-observable
+3. Redux / Redux-observable
 4. RxJs
 5. react-hook-form
-6. JuicyFront - the library of my team 
+6. JuicyFront - my components library  
 
 https://www.chromatic.com/library?appId=615d57bb546a6c004a22a565
 
 ## BackEnd repo
 https://github.com/mun4kin/meetingsBack
 
-https://meetings-back-new.herokuapp.com/api-docs/#/
-## My previous demo projects
-https://portfolio-juicy.firebaseapp.com/#/lego
+https://meetingsback.onrender.com/api-docs/#/
 
-https://portfolio-juicy.firebaseapp.com/#/storybook
 
