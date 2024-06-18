@@ -5,7 +5,7 @@ const server = 'http://localhost:5000';
 
 /** Interceptors */
 const intercept = () => {
-  Axios.interceptors.request.use((config: any) => {
+  Axios.interceptors.request.use((config) => {
 
     const host = ~window.location.hostname.indexOf('127.0.') ||
     ~window.location.hostname.indexOf('localhost') ? server : 'https://meetings-back-new.herokuapp.com';

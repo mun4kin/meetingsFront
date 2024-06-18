@@ -24,6 +24,8 @@ const FindUsers: React.FC<IProps> = ({ setUsers, users }:IProps) => {
     if (!~users.findIndex((i) => i.userId === item.userId)) {
       setUsers([ ...[item], ...users, ]);
     }
+
+
   };
   // -------------------------------------------------------------------------------------------------------------------
   const usersTSX = searchUsers.map(item => {
@@ -35,7 +37,7 @@ const FindUsers: React.FC<IProps> = ({ setUsers, users }:IProps) => {
   // -------------------------------------------------------------------------------------------------------------------
   return (
     <div className='find__wrapper'>
-      <Search placeholder='Search users ' onDebounce={onDebounceHandler}/>
+      <Search placeholder='Search users ' onDebounce={onDebounceHandler} debounce={200}/>
       <div className='find-results__wrapper'>
         {usersTSX.length ? usersTSX : <GhostScreen/> }
       </div>
